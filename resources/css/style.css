@@ -1,0 +1,21 @@
+body {
+  background-color: silver;
+}
+
+a {
+  text-decoration: none;
+}
+
+.link-navbarB {
+  text-decoration: none;
+  color: silver;
+  margin: 0 3px;
+  padding: 2px;
+}
+.link-navbarB:hover {
+  color: white;
+}
+
+.cardB {
+  margin-top: 5px;
+}/*# sourceMappingURL=style.css.map */
