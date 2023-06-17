@@ -1,14 +1,17 @@
 import NavbarB from "@/Components/NavbarB";
+import { Link } from "@inertiajs/react";
 import { useCallback } from "react";
 import Table from 'react-bootstrap/Table';
 
 export default function UserShows({auth, users}) {
+    console.log(users);
     const renderUsers = useCallback((el) => {
         return (
-            <tr key={el.id}>
-                <td key={el.id}>{el.name}</td>
-                <td key={el.id}>{el.surname}</td>
-                <td key={el.id}>{el.email}</td>
+            <tr key={'tr'+el.id}>
+                <td key={'name'+el.id}>{el.name}</td>
+                <td key={'surname'+el.id}>{el.surname}</td>
+                <td key={'email'+el.id}>{el.email}</td>
+                <td key={el.id}>{el.isActive ? <Link as="button" method="post" style={{color:'rgb(199, 245, 130)'}}>Добавить</Link> : <Link as="button" method="delete" href={route('admin.users.delete', el.id)} style={{color:'rgb(248, 111, 111)'}}>Удалить</Link>}</td>
             </tr>
         );
     }, [users]);
@@ -22,7 +25,7 @@ export default function UserShows({auth, users}) {
             <th>Имя</th>
             <th>Фамилия</th>
             <th>Email</th>
-            <th>Действия</th>
+            <th>Действие</th>
             </tr>
         </thead>
         <tbody>

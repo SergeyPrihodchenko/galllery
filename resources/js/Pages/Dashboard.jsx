@@ -13,7 +13,8 @@ export default function Dashboard({ auth }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">Вы вошли в систему!</div>
-                        <div className="p-6 text-gray-900"><Link href='/'>Пользователи</Link></div>
+                        <div className="p-6 text-gray-900"><Link href={route('main')}>Главная</Link></div>
+                        <div className="p-6 text-gray-900"><Link href={route('admin.users')}>Пользователи</Link></div>
                     </div>
                 </div>
             </div>

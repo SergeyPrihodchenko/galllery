@@ -9,12 +9,22 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index() 
+    public function index()
     {
 
         $id = Auth::user()->id;
 
-        $users = User::all()->where('id', '!=', $id);
+        $users = User::where('id', '!=', $id)->latest()->get();
         return \inertia('Admin/UserShows', ['users' => $users]);
+    }
+
+    public function update($id)
+    {
+    }
+
+    public function delete($id)
+    {
+        User::destroy($id);
+        return redirect()->route('admin.users');
     }
 }

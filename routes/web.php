@@ -24,9 +24,12 @@ Route::get('/', function () {
     ]);
 })->name('main');
 
-Route::middleware(['auth', 'verified', 'superUser'])->group(function() {
-    Route::get('/dashboard', function () { return Inertia::render('Dashboard'); })->name('dashboard');
-    Route::get('/userShows', [AdminUserController::class, 'index']);
+Route::middleware(['auth', 'verified', 'superUser'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+    Route::get('users', [AdminUserController::class, 'index'])->name('admin.users');
+    Route::delete('users/{id}', [AdminUserController::class, 'delete'])->name('admin.users.delete');
 });
 
 
@@ -37,4 +40,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
