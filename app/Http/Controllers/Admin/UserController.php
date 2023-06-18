@@ -20,6 +20,8 @@ class UserController extends Controller
 
     public function update($id)
     {
+        $user = User::where('id', '=', $id)->update(['isActive' => true]);
+        return redirect()->route('admin.users');
     }
 
     public function delete($id)

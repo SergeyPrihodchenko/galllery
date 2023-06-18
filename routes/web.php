@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\EditPostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,11 @@ Route::middleware(['auth', 'verified', 'superUser'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::get('users', [AdminUserController::class, 'index'])->name('admin.users');
+    Route::post('users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
     Route::delete('users/{id}', [AdminUserController::class, 'delete'])->name('admin.users.delete');
+
+    Route::get('editPost', [EditPostController::class, 'index'])->name('admin.edit');
+    Route::post('editPost/add', [EditPostController::class, 'add'])->name('admin.edit.add');
 });
 
 

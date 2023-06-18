@@ -11,7 +11,7 @@ export default function UserShows({auth, users}) {
                 <td key={'name'+el.id}>{el.name}</td>
                 <td key={'surname'+el.id}>{el.surname}</td>
                 <td key={'email'+el.id}>{el.email}</td>
-                <td key={el.id}>{el.isActive ? <Link as="button" method="post" style={{color:'rgb(199, 245, 130)'}}>Добавить</Link> : <Link as="button" method="delete" href={route('admin.users.delete', el.id)} style={{color:'rgb(248, 111, 111)'}}>Удалить</Link>}</td>
+                <td key={el.id}>{el.isActive == 0 ? <Link as="button" href={route('admin.users.update', el.id)} method="post" style={{color:'rgb(199, 245, 130)'}}>Добавить</Link> : <Link as="button" method="delete" href={route('admin.users.delete', el.id)} style={{color:'rgb(248, 111, 111)'}}>Удалить</Link>}</td>
             </tr>
         );
     }, [users]);

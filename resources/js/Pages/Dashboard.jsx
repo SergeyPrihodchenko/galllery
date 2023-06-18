@@ -15,6 +15,7 @@ export default function Dashboard({ auth }) {
                         <div className="p-6 text-gray-900">Вы вошли в систему!</div>
                         <div className="p-6 text-gray-900"><Link href={route('main')}>Главная</Link></div>
                         <div className="p-6 text-gray-900"><Link href={route('admin.users')}>Пользователи</Link></div>
+                        <div className="p-6 text-gray-900"><Link href={route('admin.edit')}>Добавить пост</Link></div>
                     </div>
                 </div>
             </div>
