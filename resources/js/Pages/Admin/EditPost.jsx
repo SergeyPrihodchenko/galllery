@@ -1,7 +1,7 @@
 import NavbarB from "@/Components/NavbarB";
 import { router } from "@inertiajs/react";
 import { useState } from "react";
-import { Container, Form } from "react-bootstrap";
+import { Alert, Container, Form } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import {validate, checkFile} from '@/function/functions';
 
@@ -9,7 +9,7 @@ export default function EditPost({auth}) {
 
     const [fileName, setFileName] = useState('');
     const [checkInput, setCheckInput] = useState(false);
-
+    const [alert, setAlert] = useState(false);
     const [values, setValues] = useState({
         title: "",
         subtitle: "", 
@@ -30,6 +30,7 @@ export default function EditPost({auth}) {
     
 
       function handleChange(e) {
+        setAlert(false);
         const key = e.target.id;
         const value = e.target.value
         e.target.classList.remove('form-validate');
@@ -56,11 +57,11 @@ export default function EditPost({auth}) {
                 file: {}
             }));
             setFileName('');
+            setAlert(true);
         }
     }
 
-      
-
+    
     return (
         <>
         <style type="text/css">
@@ -75,7 +76,9 @@ export default function EditPost({auth}) {
       </style>
             <NavbarB auth={auth}/>
             <Container>
-            {/* СООБЩИТЬ О ДОБАВЛЕНИИ ПОСТА */}
+            {alert ? <Alert variant='success'>
+          Публикация добавлена
+        </Alert> : ''}
             <Form onSubmit={handleSubmit} onClick={validate} method="POST">
             <Form.Group className="mb-3" controlId="title">
                 <Form.Label>Название</Form.Label>
@@ -92,7 +95,9 @@ export default function EditPost({auth}) {
                 <Form.Control className="form-control" type="file" placeholder="Картинка" value={fileName} onChange={handleFile}/>
                 
             </Form.Group>
-            {/* УКАЗАТЬ ПРИЧИНУ ОШИБКИ */}
+            {checkInput ? '' : <Alert variant='warning'>
+          Не допустимый формат файла. Возможные форматы: ''.jpg','.png','.bmp','.psd'
+        </Alert>}
             <Button variant="primary" type="submit">
                 Добавить
             </Button>

@@ -15,6 +15,6 @@ class EditPostController extends Controller
     public function add(DrinkRequest $request, Drink $drink)
     {
         $drink->add($request);
-        return redirect()->route('admin.edit');
+        return to_route('admin.edit');
     }
 }
