@@ -10,7 +10,11 @@ class Drink extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'subtitle', 'img_drink'];
+    protected $fillable = [
+        'title',
+        'subtitle',
+        'img_drink'
+    ];
 
     public function add($request)
     {

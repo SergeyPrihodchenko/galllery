@@ -20,7 +20,7 @@ export default function NavbarB({auth})
           <Nav className="me-auto">
           {auth.user ? '' : <Link className='link-navbarB' href='/register'>Регистрация</Link>}
           {auth.user !== null ? dashboard('isAdmin' in auth.user) : ''}
-          {auth.user ? <Link className='link-navbarB' method='POST' href='logout' as='button'>Выход</Link> : <Link className='link-navbarB' href='login' as='button'>Вход</Link>}
+          {auth.user ? <Link className='link-navbarB' method='POST' href='/logout' as='button'>Выход</Link> : <Link className='link-navbarB' href='/login' as='button'>Вход</Link>}
           </Nav>
         </Container>
       </Navbar>

@@ -79,7 +79,7 @@ export default function EditPost({auth}) {
             {alert ? <Alert variant='success'>
           Публикация добавлена
         </Alert> : ''}
-            <Form onSubmit={handleSubmit} onClick={validate} method="POST">
+            <Form onSubmit={handleSubmit} method="POST">
             <Form.Group className="mb-3" controlId="title">
                 <Form.Label>Название</Form.Label>
                 <Form.Control className="form-control" type="text" placeholder="Название" value={values.title} onChange={handleChange}/>

@@ -22,6 +22,10 @@ use Inertia\Inertia;
 Route::get('/', [MainController::class, 'index'])->name('main');
 Route::get('/showCard/{id}', [MainController::class, 'show'])->name('show');
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('comment/add', [MainController::class, 'addComment'])->name('add_comment');
+});
+
 Route::middleware(['auth', 'verified', 'superUser'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
@@ -33,8 +37,6 @@ Route::middleware(['auth', 'verified', 'superUser'])->group(function () {
     Route::get('editPost', [EditPostController::class, 'index'])->name('admin.edit');
     Route::post('editPost/add', [EditPostController::class, 'add'])->name('admin.edit.add');
 });
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
