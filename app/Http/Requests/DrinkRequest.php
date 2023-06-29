@@ -23,7 +23,7 @@ class DrinkRequest extends FormRequest
     {
         return [
             'title' => 'string|max:40|filled',
-            'subtitle' => 'string|max:700|filled',
+            'subtitle' => 'string|max:5000|filled',
             'file' => 'file|mimes:jpg,png,bmp,psd'
         ];
     }

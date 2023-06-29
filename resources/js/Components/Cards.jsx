@@ -1,18 +1,21 @@
 import { Link } from '@inertiajs/react';
 import Card from 'react-bootstrap/Card';
 
-function ImgOverlayExample() {
+function ImgOverlayExample({posts}) {
   return (
-        <Card className="bg-dark text-white cardB">
-            <Card.Img src="./storage/img_drink/ensht.jpg" alt="Card image" width='860px' height='300px'/>
+        posts.map(el => {return (
+          <Link key={el.id + 'link'} href={route('show', el.id)}>
+            <Card key={el.id} className="bg-dark text-white cardB">
+            <Card.Img src={'./storage/img_drink/'+el.img_drink} alt="Card image" width='860px' height='300px'/>
             <Card.ImgOverlay>
-                <Card.Title>Card title</Card.Title>
+                <Card.Title>{el.title}</Card.Title>
                 <Card.Text>
-                This is a wider card with supporting text below as a natural lead-in
-                to additional content. This content is a little bit longer.
+                {el.subtitle}
                 </Card.Text>
             </Card.ImgOverlay>
-        </Card>
+            </Card>
+          </Link>
+        )})
   );
 }
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\EditPostController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -18,12 +19,8 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return \inertia('Main', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register')
-    ]);
-})->name('main');
+Route::get('/', [MainController::class, 'index'])->name('main');
+Route::get('/showCard/{id}', [MainController::class, 'show'])->name('show');
 
 Route::middleware(['auth', 'verified', 'superUser'])->group(function () {
     Route::get('/dashboard', function () {
