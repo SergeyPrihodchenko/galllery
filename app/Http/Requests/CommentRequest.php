@@ -11,7 +11,7 @@ class CommentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class CommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'text' => 'string|max:500',
+            'user_id' => 'integer|max:10000',
+            'drink_id' => 'integer|max:10000'
         ];
     }
 }

@@ -1,15 +1,25 @@
 import NavbarB from "@/Components/NavbarB";
 import { router } from "@inertiajs/react";
+import { useCallback } from "react";
 import { useState } from "react";
 import { Accordion, Button, Card, Container, Form } from "react-bootstrap";
 
-export default function ShowCard({auth, post}) {
+export default function ShowCard({auth, post, comments}) {
     const [text, setText] = useState('');
 
     const handleChange = (e) => {
         let value = e.target.value;
         setText(value);
     }
+
+    const renderComments = useCallback(el => {
+        return (<div key={el.id} className="comment_block">
+            <span>{el.name+' '+el.surname}:</span>
+            <p>{el.text}</p>
+            <p>{el.created_at}</p>
+            <hr/>
+        </div>);
+    });
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -21,6 +31,7 @@ export default function ShowCard({auth, post}) {
         router.post('/comment/add', data, {
             method: 'POST'
         });
+        setText('');
       }
 
     return (
@@ -30,14 +41,8 @@ export default function ShowCard({auth, post}) {
         {auth.user !== null && auth.user.isActive ? <Accordion >
             <Accordion.Item eventKey="0">
                 <Accordion.Header>Комментарии</Accordion.Header>
-                    <Accordion.Body style={{height: '200px', overflow: 'auto', scrollbarWidth: 'thin' }}>
-                        <p>Lorem ipsum dolor sit amet</p> 
-                        <p>Lorem ipsum dolor sit amet</p> 
-                        <p>Lorem ipsum dolor sit amet</p> 
-                        <p>Lorem ipsum dolor sit amet</p> 
-                        <p>Lorem ipsum dolor sit amet</p>
-                        <p>Lorem ipsum dolor sit amet</p> 
-                        <p>Lorem ipsum dolor sit amet</p> 
+                    <Accordion.Body style={{height: '200px', overflow: 'auto', scrollbarWidth: 'auto' }}>
+                        {comments.map(el => renderComments(el))}
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion> : ''}

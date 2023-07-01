@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Models\Drink;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 class MainController extends Controller
@@ -23,15 +25,18 @@ class MainController extends Controller
         );
     }
 
-    public function show($id)
+    public function show($id, Comment $comment)
     {
         $drink = Drink::all()->find($id);
-        return \inertia('ShowCard', ['post' => $drink]);
+        
+        $comments = $comment->getComments($id);
+
+        return \inertia('ShowCard', ['post' => $drink, 'comments' => $comments]);
     }
 
-    public function addComment(Request $request)
+    public function addComment(CommentRequest $request, Comment $comment)
     {
-        $comment = new Comment;
-        dd($request);
+        $validate = $request->validated();
+        $comment->add($validate);
     }
 }
