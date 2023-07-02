@@ -14,9 +14,12 @@ export default function ShowCard({auth, post, comments}) {
 
     const renderComments = useCallback(el => {
         return (<div key={el.id} className="comment_block">
-            <span>{el.name+' '+el.surname}:</span>
-            <p>{el.text}</p>
-            <p>{el.created_at}</p>
+            <span className="full_name">{el.name+' '+el.surname}:</span>
+            <p className="comment_text">{el.text}</p>
+            <p className="date_at_comment">{el.created_at}</p>
+            <form action="">
+            <div className="closeModal"></div>
+            </form>
             <hr/>
         </div>);
     });
