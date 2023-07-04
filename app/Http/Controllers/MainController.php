@@ -39,4 +39,8 @@ class MainController extends Controller
         $validate = $request->validated();
         $comment->add($validate);
     }
+
+    public function deleteComment(Comment $comment, $id, $messageId) {
+        $comment->destroy($messageId);
+    }
 }

@@ -36,6 +36,8 @@ Route::middleware(['auth', 'verified', 'superUser'])->group(function () {
 
     Route::get('editPost', [EditPostController::class, 'index'])->name('admin.edit');
     Route::post('editPost/add', [EditPostController::class, 'add'])->name('admin.edit.add');
+
+    Route::delete('showCard/{id}/message/delete/{messageId}', [MainController::class, 'deleteComment']);
 });
 
 Route::middleware('auth')->group(function () {

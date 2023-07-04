@@ -6,20 +6,27 @@ import { Accordion, Button, Card, Container, Form } from "react-bootstrap";
 
 export default function ShowCard({auth, post, comments}) {
     const [text, setText] = useState('');
-
     const handleChange = (e) => {
         let value = e.target.value;
         setText(value);
     }
+
+    const messageDelete = (e) => {
+        const messageId = e.target.dataset.id;
+        e.preventDefault();
+        router.delete(`${post.id}/message/delete/${messageId}`, {
+            method: 'delete'
+        });
+    } 
 
     const renderComments = useCallback(el => {
         return (<div key={el.id} className="comment_block">
             <span className="full_name">{el.name+' '+el.surname}:</span>
             <p className="comment_text">{el.text}</p>
             <p className="date_at_comment">{el.created_at}</p>
-            <form action="">
-            <div className="closeModal"></div>
-            </form>
+            {auth.user !== null && auth.user.isAdmin ? <form onSubmit={messageDelete} data-id={el.id}>
+            <button className="closeModal" type="submit"></button>
+            </form> : ''}
             <hr/>
         </div>);
     });
