@@ -38,6 +38,7 @@ Route::middleware(['auth', 'verified', 'superUser'])->group(function () {
     Route::post('editPost/add', [EditPostController::class, 'add'])->name('admin.edit.add');
 
     Route::delete('showCard/{id}/message/delete/{messageId}', [MainController::class, 'deleteComment']);
+    Route::delete('showCard/delete/post/{postId}', [MainController::class, 'deletePost']);
 });
 
 Route::middleware('auth')->group(function () {

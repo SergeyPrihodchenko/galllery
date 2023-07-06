@@ -43,4 +43,8 @@ class MainController extends Controller
     public function deleteComment(Comment $comment, $id, $messageId) {
         $comment->destroy($messageId);
     }
+    public function deletePost(Drink $drink, $postId) {
+        $drink->deletePost($postId);
+        return to_route('main');
+    }
 }

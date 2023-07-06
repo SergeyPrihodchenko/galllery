@@ -44,6 +44,14 @@ export default function ShowCard({auth, post, comments}) {
         setText('');
       }
 
+      function deletePost(e) {
+        e.preventDefault();
+
+        router.delete(`delete/post/${post.id}`, {
+            method: 'DELETE'
+        })
+      }
+
     return (
         <>
         <NavbarB auth={auth}/>
@@ -56,6 +64,8 @@ export default function ShowCard({auth, post, comments}) {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion> : ''}
+            <Container><h3>{post.title}</h3></Container>
+            <Container><p>{post.subtitle}</p></Container>
             <Card className="bg-dark text-white cardB">
             <Card.Img src={'/storage/img_drink/'+post.img_drink} alt="Card image" width='860px' height='300px'/>
             </Card>
@@ -67,6 +77,13 @@ export default function ShowCard({auth, post, comments}) {
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Отправить
+                </Button>
+            </Form>
+            : ''}
+            <hr />
+            {auth.user !== null && auth.user.isAdmin ?<Form style={{margin: '10px 0'}} onSubmit={deletePost}>
+                <Button variant="danger" type="submit">
+                    Удалить пост
                 </Button>
             </Form>
             : ''}
