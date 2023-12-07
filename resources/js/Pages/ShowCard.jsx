@@ -17,7 +17,7 @@ export default function ShowCard({auth, post, comments}) {
         router.delete(`${post.id}/message/delete/${messageId}`, {
             method: 'delete'
         });
-    } 
+    }
 
     const renderComments = useCallback(el => {
         return (<div key={el.id} className="comment_block">
@@ -52,6 +52,52 @@ export default function ShowCard({auth, post, comments}) {
         })
       }
 
+      const [elem, setElem] = useState('header');
+      const [subTitle, setSubTitle] = useState('subTitle');
+      const [focus, setFocus] = useState(false);
+
+      const switchElem = () => {
+        if(auth.user !== null && auth.user.isAdmin) {
+            setElem('input');
+            setFocus(true);
+        }
+      }
+
+      const switchElemSubTitle = () => {
+        if (auth.user !== null && auth.user.isAdmin) {
+            setSubTitle('inputSubTitle');
+            setFocus(true);
+        }
+      }
+
+      const [valueTitle, setValueTitle] = useState('');
+      const [valueSubTitle, setValueSubTitle] = useState('');
+
+      const hendleTitle = (e) => {
+        setValueTitle(e.target.value);
+      }
+      const hendleSubTitle = (e) => {
+        setValueSubTitle(e.target.value);
+      }
+
+      const elemMap = new Map();
+
+      const editTitle = () => {
+        router.post(route('admin.edit.editTitle'), {id: post.id, title: valueTitle});
+        setElem('header');
+      }
+      const editSubTitle = () => {
+        router.post(route('admin.edit.editSubTitle'), {id: post.id, subtitle: valueSubTitle});
+        setSubTitle('subTitle');
+      }
+
+      elemMap.set('header', <Container onDoubleClick={switchElem}><h3>{post.title}</h3></Container>);
+      elemMap.set('input', <Container><hr /><Form><Form.Group className="mb-3" controlId="formBasicEmail"><Form.Control value={valueTitle} onChange={hendleTitle} type="text" placeholder="Новое название" autoFocus={focus} /></Form.Group></Form><Button variant="primary" onClick={editTitle}>Изменить</Button><hr /></Container>);
+
+      elemMap.set('subTitle', <Container onDoubleClick={switchElemSubTitle}><p>{post.subtitle}</p></Container>);
+      elemMap.set('inputSubTitle', <Container><hr /><Form><Form.Group className="mb-3" controlId="formBasicEmail"><Form.Control value={valueSubTitle} onChange={hendleSubTitle} as={'textarea'} type="text" placeholder="Введите текст" autoFocus={focus} /></Form.Group></Form><Button variant="primary" onClick={editSubTitle}>Изменить</Button><hr /></Container>);
+
+
     return (
         <>
         <NavbarB auth={auth}/>
@@ -64,8 +110,8 @@ export default function ShowCard({auth, post, comments}) {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion> : ''}
-            <Container><h3>{post.title}</h3></Container>
-            <Container><p>{post.subtitle}</p></Container>
+            {elemMap.get(elem)}
+            {elemMap.get(subTitle)}
             <Card className="bg-dark text-white cardB">
             <Card.Img src={'/storage/img_drink/'+post.img_drink} alt="Card image" width='860px' height='300px'/>
             </Card>
