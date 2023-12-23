@@ -2,6 +2,15 @@ body {
   background-color: silver;
 }
 
+p {
+   font-weight: 900;
+}
+
+h5 {
+  font-weight: 900;
+  font-size: 2em;
+}
+
 a {
   text-decoration: none;
 }
@@ -21,11 +30,19 @@ a {
   margin-top: 5px;
 }
 
+.text_title {
+   font-size: 1.4em;
+   font-weight: 600;
+}
+
 .text_content {
   position: relative;
   z-index: 99;
   box-sizing: border-box;
   display: block;
+  font-weight: 500;
+  font-size: 1.3em;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 .back_fon {
